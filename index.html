@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конвертер валют | Лабораторна робота №2</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Бібліотека RxJS 7 (реактивне програмування та обробка потоків подій) -->
+    <script src="https://unpkg.com/rxjs@7.8.1/dist/bundles/rxjs.umd.min.js"></script>
+    
+    <!-- Бібліотека Chart.js (побудова графіка за тиждень) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Конвертер валют (ExchangeRate API)</h1>
+        <p class="subtitle">Лабораторна робота №2. Варіант 5</p>
+    </header>
+
+    <main>
+        <section class="converter-card">
+            <h2>Розрахунок конвертації</h2>
+            
+            <div class="converter-form">
+                <div class="form-group">
+                    <label for="amount-input">Сума для конвертації:</label>
+                    <input type="number" id="amount-input" value="100" min="0" step="any" placeholder="Введіть суму...">
+                </div>
+
+                <div class="currencies-row">
+                    <div class="form-group">
+                        <label for="base-currency">З валюти:</label>
+                        <select id="base-currency">
+                            <option value="USD" selected>USD — Долар США</option>
+                            <option value="EUR">EUR — Євро</option>
+                            <option value="UAH">UAH — Гривня</option>
+                            <option value="GBP">GBP — Фунт стерлінгів</option>
+                            <option value="PLN">PLN — Польський злотий</option>
+                            <option value="CHF">CHF — Швейцарський франк</option>
+                        </select>
+                    </div>
+
+                    <button type="button" id="swap-btn" title="Поміняти валюти місцями" class="swap-btn">⇄</button>
+
+                    <div class="form-group">
+                        <label for="target-currency">У валюту:</label>
+                        <select id="target-currency">
+                            <option value="USD">USD — Долар США</option>
+                            <option value="EUR">EUR — Євро</option>
+                            <option value="UAH" selected>UAH — Гривня</option>
+                            <option value="GBP">GBP — Фунт стерлінгів</option>
+                            <option value="PLN">PLN — Польський злотий</option>
+                            <option value="CHF">CHF — Швейцарський франк</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Індикатор завантаження -->
+                <div id="loading-spinner" class="status-msg loading" style="display: none;">
+                    Оновлення курсів з API...
+                </div>
+
+                <!-- Повідомлення про помилку мережі або API -->
+                <div id="error-message" class="status-msg error" style="display: none;"></div>
+
+                <!-- Блок результатів -->
+                <div class="result-box">
+                    <div class="converted-amount" id="result-display">--</div>
+                    <div class="rate-details" id="rate-info">Курс: --</div>
+                    <div class="timestamp-details" id="last-update">Оновлено: --</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Додаткове завдання: Графік за тиждень -->
+        <section class="chart-card">
+            <h2>Динаміка курсу за останні 7 днів</h2>
+            <div class="chart-container">
+                <canvas id="rateChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Автооновлення кожні 5 хвилин (RxJS interval) | &copy; 2026</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
